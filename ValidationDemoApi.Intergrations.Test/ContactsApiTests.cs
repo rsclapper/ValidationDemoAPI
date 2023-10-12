@@ -34,6 +34,14 @@ namespace ValidationDemoApi.Intergrations.Test
             {
                 var context = scope.ServiceProvider.GetRequiredService<ContactContext>();
                 context.Database.EnsureCreated();
+
+
+                context.Add(new Contact
+                {
+                    Name = "John Smith",
+                    Email = ""
+                });
+                context.SaveChanges();
             }
 
             // ... Rest of the setup code...
