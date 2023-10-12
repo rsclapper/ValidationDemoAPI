@@ -16,20 +16,41 @@ namespace ValidationDemoApi.Intergrations.Test
     public class ContactsApiTests
     {
         private CustomWebApplicationFactory<Program> _factory;
-        private ContactContext? _context;
+        private HttpClient _client;
         public ContactsApiTests()
         {
-           
+
         }
 
         [SetUp]
         public void Setup()
         {
+            _factory?.Dispose(); // Dispose the old factory if it exists
             _factory = new CustomWebApplicationFactory<Program>();
-            
-            //dbContext.Database.Migrate();
-            
+            // Initialize a client to ensure the TestServer is built.
+            _client = _factory.CreateClient();
+            // Create database
+            using (var scope = _factory.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<ContactContext>();
+                context.Database.EnsureCreated();
+            }
 
+            // ... Rest of the setup code...
+        }
+        
+        [TearDown]
+
+        public void Teardown()
+        {
+            // Delete database
+            using (var scope = _factory.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<ContactContext>();
+                context.Database.EnsureDeleted();
+                context.Dispose();
+            }
+            _factory.Dispose();
         }
 
        
@@ -54,10 +75,10 @@ namespace ValidationDemoApi.Intergrations.Test
         public async Task GetContacts_ReturnsExpectedContacts()
         {
             // Arrange
-            var client = _factory.CreateClient();
+            
 
             // Act
-            var response = await client.GetAsync("/api/contacts");
+            var response = await _client.GetAsync("/api/contacts");
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -71,7 +92,7 @@ namespace ValidationDemoApi.Intergrations.Test
         public async Task AddContact_ReturnsSuccessResponse()
         {
             // Arrange
-            var client = _factory.CreateClient();
+  
             var newContact = new ContactDto
             {
                 Name = "John Smith",
@@ -86,11 +107,11 @@ namespace ValidationDemoApi.Intergrations.Test
             };
             var jsonContent = new StringContent(JsonConvert.SerializeObject(newContact), Encoding.UTF8, "application/json");
 
-            var token = await GetJwtTokenAsync(client);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var token = await GetJwtTokenAsync(_client);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             // Act
-            var response = await client.PostAsync("/api/contacts", jsonContent);
+            var response = await _client.PostAsync("/api/contacts", jsonContent);
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -106,20 +127,20 @@ namespace ValidationDemoApi.Intergrations.Test
         public async Task AddContact_WithInvalidEmail_ReturnsValidationError()
         {
             // Arrange
-            var client = _factory.CreateClient();
+            
             var newContact = new Contact
             {
                 Name = "John Doe",
                 Email = "invalid-email"
                 // Set other properties as needed
             };
-            var token = await GetJwtTokenAsync(client);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var token = await GetJwtTokenAsync(_client);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var jsonContent = new StringContent(JsonConvert.SerializeObject(newContact), Encoding.UTF8, "application/json");
 
             // Act
-            var response = await client.PostAsync("/api/contacts", jsonContent);
+            var response = await _client.PostAsync("/api/contacts", jsonContent);
 
             // Assert
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode); // Assuming your API returns a 400 Bad Request for validation errors

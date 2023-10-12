@@ -60,14 +60,7 @@ namespace ValidationDemoApi
                 app.UseSwaggerUI();
                 
             }
-            using (var scope = app.Services.CreateScope())
-            {
-                var dbContext = scope.ServiceProvider.GetRequiredService<ContactContext>();
-                if (!dbContext.Database.EnsureCreated())
-                {
-                    dbContext.Database.Migrate();
-                }
-            }
+          
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();

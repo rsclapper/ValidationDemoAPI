@@ -9,6 +9,8 @@ namespace ValidationDemoApi.Intergrations.Test
     // Test Factory Setup
     public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
     {
+        
+
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.ConfigureServices(services =>
@@ -26,9 +28,11 @@ namespace ValidationDemoApi.Intergrations.Test
                 // Register the in-memory DbContext
                 services.AddDbContext<ContactContext>(options =>
                 {
-                    options.UseSqlite("Filename=:memory:")
-                    .EnableSensitiveDataLogging(); // This can help in debugging
+                    options.UseInMemoryDatabase("InMemoryDbForTesting");
+
                 });
+                
+               
             });
 
             base.ConfigureWebHost(builder);
