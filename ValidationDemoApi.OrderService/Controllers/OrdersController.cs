@@ -16,9 +16,9 @@ namespace ValidationDemoApi.OrderService.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IRepository<Order> _orderRepo;
-        private readonly IClientService clientService;
+        private readonly IContactService clientService;
 
-        public OrdersController(IRepository<Order> orderRepo, IClientService clientService)
+        public OrdersController(IRepository<Order> orderRepo, IContactService clientService)
         {
             _orderRepo = orderRepo;
             this.clientService = clientService;
@@ -32,6 +32,7 @@ namespace ValidationDemoApi.OrderService.Controllers
             
             
             // Using Polly, implementing a circuit breaker is relatively simple:
+
 
             var contacts = await clientService.GetContactsAsync();
            

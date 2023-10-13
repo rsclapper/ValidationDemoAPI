@@ -1,4 +1,5 @@
-﻿using ValidationDemoApi.CORE.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using ValidationDemoApi.CORE.Interfaces;
 
 namespace ValidationDemoApi.DAL
 {
@@ -36,7 +37,7 @@ namespace ValidationDemoApi.DAL
 
         public IEnumerable<T> GetAll()
         {
-            return _context.Set<T>().ToList();
+            return _context.Set<T>().AsNoTracking().ToList();
         }
 
         // Add a method to get all entities that match a predicate

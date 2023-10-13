@@ -31,8 +31,6 @@ namespace ValidationDemoApi.Intergrations.Test
                     options.UseInMemoryDatabase("InMemoryDbForTesting");
 
                 });
-                
-               
             });
 
             base.ConfigureWebHost(builder);

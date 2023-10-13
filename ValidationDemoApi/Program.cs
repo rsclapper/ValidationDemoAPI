@@ -1,8 +1,11 @@
+// using GreenPipes;
+// using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using MassTransit;
 using ValidationDemoApi.CORE.Interfaces;
 using ValidationDemoApi.CORE.Models;
 using ValidationDemoApi.DAL;
@@ -23,6 +26,31 @@ namespace ValidationDemoApi
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
 
+            //builder.Services.AddMassTransit(x =>
+            //{
+            //    // elided...
+            //    x.UsingRabbitMq((context, cfg) =>
+            //    {
+                    
+            //        cfg.Host("localhost", "/", h => {
+            //            h.Username("guest");
+            //            h.Password("guest");
+            //        });
+            //        cfg.ConfigureEndpoints(context);
+            //        cfg.UseRetry(retryConfig =>
+            //        {
+            //            retryConfig.Interval(3, TimeSpan.FromSeconds(5));
+            //        });
+            //        cfg.UseCircuitBreaker(cbConfig =>
+            //        {
+            //            cbConfig.TrackingPeriod = TimeSpan.FromMinutes(1);
+            //            cbConfig.TripThreshold = 15;
+            //            cbConfig.ActiveThreshold = 10;
+            //            cbConfig.ResetInterval = TimeSpan.FromMinutes(5);
+            //        });
+            //    });
+            //});
+          
             //builder.Services.AddSingleton(typeof(IRepository<Contact>), x => new FileRepository<Contact>("Contacts.txt", mapper));
             builder.Services.AddTransient<IRepository<Contact>, EFRepository<Contact>>();
             builder.Services.AddTransient<IRepository<Order>, EFRepository<Order>>();
@@ -61,6 +89,12 @@ namespace ValidationDemoApi
                 
             }
           
+            using(var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<ContactContext>();
+                context.Database.EnsureCreated();
+                
+            }
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();

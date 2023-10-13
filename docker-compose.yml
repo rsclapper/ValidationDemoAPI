@@ -1,0 +1,48 @@
+version: '3.4'
+
+services:
+  db_sql_server:
+    user: root
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+      SA_PASSWORD: "P@ssword!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1544:1433"
+    volumes:
+      - sql-data:/var/opt/mssql/data
+    networks:
+      - api_network
+
+  orderapi:
+    depends_on:
+      - db_sql_server
+    build:
+      context: .
+      dockerfile: ./ValidationDemoApi.OrderService/Dockerfile
+    ports:
+      - "8072:80"
+      - "8073:443"
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=db_sql_server;Database=ContactDB;User Id=sa;Password=P@ssword!;TrustServerCertificate=true;"
+    networks:
+      - api_network
+  contactapi:
+    depends_on:
+      - db_sql_server
+    build:
+      context: .
+      dockerfile: ./ValidationDemoApi/Dockerfile
+    ports:
+      - "8074:80"
+      - "8075:443"
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=db_sql_server;Database=ContactDB;User Id=sa;Password=P@ssword!;TrustServerCertificate=true;"
+    networks:
+      - api_network
+
+volumes:
+  sql-data:
+
+networks:
+  api_network:

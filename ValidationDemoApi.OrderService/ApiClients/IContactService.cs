@@ -2,7 +2,7 @@
 
 namespace ValidationDemoApi.OrderService.ApiClients
 {
-    public interface IClientService
+    public interface IContactService
     {
         Task<List<ContactDto>?> GetContactsAsync();
     }
