@@ -1,4 +1,9 @@
 using MassTransit;
+using Microsoft.EntityFrameworkCore;
+using ValidationDemoApi.CORE.Interfaces;
+using ValidationDemoApi.CORE.Models;
+using ValidationDemoApi.DAL;
+using ValidationDemoApi.OrderService.ApiClients;
 
 namespace ValidationDemoApi.OrderService
 {
@@ -7,7 +12,10 @@ namespace ValidationDemoApi.OrderService
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            builder.Services.AddDbContext<ContactContext>(options => 
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+            );
+            builder.Services.AddScoped<IContactService, ContactService>();
             // Add services to the container.
             builder.Services.AddHttpClient();
             builder.Services.AddControllers();
@@ -37,6 +45,8 @@ namespace ValidationDemoApi.OrderService
             //        });
             //    });
             //});
+            builder.Services.AddTransient<IRepository<Order>, EFRepository<Order>>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

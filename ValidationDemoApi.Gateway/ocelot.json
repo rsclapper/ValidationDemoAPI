@@ -1,0 +1,26 @@
+{
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7036"
+  },
+  "Routes": [{
+    "UpstreamPathTemplate": "/gateway/contacts",
+    "UpstreamHttpMethod": ["Get"],
+    "DownstreamPathTemplate": "/api/contacts",
+    "DownstreamScheme": "https",
+    "DownstreamHostAndPorts": [{
+      "Host": "localhost",
+      "Port": 7070
+    }]
+  },
+    {
+      "UpstreamPathTemplate": "/gateway/orders",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/orders",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 7108
+      }]
+    }
+  ]
+}

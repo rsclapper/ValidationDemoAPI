@@ -21,7 +21,7 @@ namespace ValidationDemoApi.OrderService.ApiClients
             handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
             client = new HttpClient(handler);
 
-            client.BaseAddress = new Uri("https://contactapi/");
+            client.BaseAddress = new Uri("https://localhost:7070");
             timeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(3));
             circuitBreakerPolicy = Policy.Handle<Exception>().CircuitBreaker(2, TimeSpan.FromSeconds(5));
 

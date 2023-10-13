@@ -53,7 +53,6 @@ namespace ValidationDemoApi
           
             //builder.Services.AddSingleton(typeof(IRepository<Contact>), x => new FileRepository<Contact>("Contacts.txt", mapper));
             builder.Services.AddTransient<IRepository<Contact>, EFRepository<Contact>>();
-            builder.Services.AddTransient<IRepository<Order>, EFRepository<Order>>();
             builder.Services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
