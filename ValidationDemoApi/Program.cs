@@ -63,6 +63,7 @@ namespace ValidationDemoApi
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
          .AddJwtBearer(options =>
          {
+             options.RequireHttpsMetadata = false;
              options.TokenValidationParameters = new TokenValidationParameters
              {
                  ValidateIssuer = true,
@@ -70,8 +71,8 @@ namespace ValidationDemoApi
                  ValidateLifetime = true,
                  ValidateIssuerSigningKey = true,
 
-                 ValidIssuer = "http://localhost:2000",
-                 ValidAudience = "http://localhost:2000",
+                 ValidIssuer = "https://localhost:7124",
+                 ValidAudience = "https://localhost:7124",
                  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("KeyForSignInSecret@1234"))
              };
              // builder.Services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);

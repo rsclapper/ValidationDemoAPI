@@ -21,6 +21,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidationDemoApi.Gateway", "ValidationDemoApi.Gateway\ValidationDemoApi.Gateway.csproj", "{CA2C4856-210D-45F8-84E2-A0C0498FB455}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidationDemoApi.AuthService", "ValidationDemoApi.AuthService\ValidationDemoApi.AuthService.csproj", "{6C9B8FFE-5A63-434E-94F5-114C8EBB5217}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{CA2C4856-210D-45F8-84E2-A0C0498FB455}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA2C4856-210D-45F8-84E2-A0C0498FB455}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA2C4856-210D-45F8-84E2-A0C0498FB455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C9B8FFE-5A63-434E-94F5-114C8EBB5217}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C9B8FFE-5A63-434E-94F5-114C8EBB5217}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C9B8FFE-5A63-434E-94F5-114C8EBB5217}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C9B8FFE-5A63-434E-94F5-114C8EBB5217}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{E1E18D7E-1A8E-4D68-875A-E77602DED081} = {EB110F31-9D96-47AA-B419-AFFF78722AF5}
 		{4B79B271-1A6B-46F7-A761-6A4A454828E9} = {C765E331-DBED-468F-9371-91AD8A9D7DC1}
 		{CA2C4856-210D-45F8-84E2-A0C0498FB455} = {C765E331-DBED-468F-9371-91AD8A9D7DC1}
+		{6C9B8FFE-5A63-434E-94F5-114C8EBB5217} = {C765E331-DBED-468F-9371-91AD8A9D7DC1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ACB14DB8-5442-4EAE-965D-23F358444B11}
