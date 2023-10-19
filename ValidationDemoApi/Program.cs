@@ -25,7 +25,15 @@ namespace ValidationDemoApi
             builder.Services.AddDbContext<ContactContext>(options => 
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
-
+// Add CORS support
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                        .WithOrigins("http://172.22.0.1:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+            });
             //builder.Services.AddMassTransit(x =>
             //{
             //    // elided...
@@ -95,7 +103,9 @@ namespace ValidationDemoApi
                 context.Database.EnsureCreated();
                 
             }
+            app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
+
             app.UseAuthentication();
             app.UseAuthorization();
 

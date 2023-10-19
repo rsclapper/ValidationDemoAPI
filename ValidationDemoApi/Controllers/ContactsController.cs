@@ -43,7 +43,7 @@ namespace ValidationDemoApi.Controllers
 
         // POST api/<ContactsController>
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public IActionResult Post([FromBody] ContactDto contact)
         {
             if (!ModelState.IsValid)

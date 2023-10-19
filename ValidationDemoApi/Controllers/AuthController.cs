@@ -26,8 +26,8 @@ namespace ValidationDemoApi.Controllers
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("KeyForSignInSecret@1234"));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(
-                issuer: "http://localhost:2000",
-                audience: "http://localhost:2000",
+                issuer: "https://localhost:7124",
+                audience: "https://localhost:7124",
                 claims: new List<Claim>(),
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: signinCredentials);

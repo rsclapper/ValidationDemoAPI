@@ -54,14 +54,22 @@ namespace ValidationDemoApi.OrderService.Controllers
         }
         // GET api/Contacts/{contactId}/Orders
         [HttpGet, Route("/api/Contacts/{contactId}/Orders")]
-        public IActionResult GetByContactId(int contactId)
+        public async Task<IActionResult> GetByContactId(int contactId)
         {
-            var orders = _orderRepo.GetAll(o => o.ContactId == contactId);
+            var orders = _orderRepo.Filter(o => o.ContactId == contactId);
             if (orders == null)
             {
                 return NotFound();
             }
-            return Ok(orders.Select(o => o.MapToDto()).ToList());
+            var orderDtos = orders.Select(o => o.MapToDto()).ToList();
+            var contacts = await clientService.GetContactsAsync();
+            
+            foreach (var orderDto in orderDtos)
+            {
+                ContactDto contact = contacts.FirstOrDefault(c => c.Id == orderDto.ContactId);
+                orderDto.CustomerName = contact != null ? $"{contact.Name}" : "Unknown";
+            }
+            return Ok(orderDtos.ToList());
         }
 
         // POST api/<OrdersController>

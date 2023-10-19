@@ -48,7 +48,7 @@ namespace ValidationDemoApi.DAL
         }
 
 
-        public void Add(T entity)
+        public T Add(T entity)
         {
             var nextId = 0;
             if (_entities.Any())
@@ -58,7 +58,7 @@ namespace ValidationDemoApi.DAL
             entity.Id = nextId + 1;
             _entities.Add(entity);
             Save();
-
+            return entity;
         }
 
         public void Delete(T entity)
@@ -96,7 +96,7 @@ namespace ValidationDemoApi.DAL
             }
         }
 
-        public IEnumerable<T> GetAll(Func<T, bool> predicate)
+        public IEnumerable<T> Filter(Func<T, bool> predicate)
         {
             var entities = _entities.Where(predicate);
             return entities;

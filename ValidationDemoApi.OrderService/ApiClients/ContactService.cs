@@ -13,7 +13,7 @@ namespace ValidationDemoApi.OrderService.ApiClients
         private HttpClient client;
         private CircuitBreakerPolicy circuitBreakerPolicy;
         AsyncTimeoutPolicy<HttpResponseMessage> timeoutPolicy;
-        public ContactService(IHttpClientFactory clientFactory)
+        public ContactService(IHttpClientFactory clientFactory, IConfiguration config)
         {
             _clientFactory = clientFactory;
             //HttpClient client = _clientFactory.CreateClient();
@@ -21,7 +21,8 @@ namespace ValidationDemoApi.OrderService.ApiClients
             handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
             client = new HttpClient(handler);
 
-            client.BaseAddress = new Uri("https://localhost:7070");
+            var baseAddress = config.GetValue<string>("ContactService:BaseAddress");
+            client.BaseAddress = new Uri(baseAddress);
             timeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(3));
             circuitBreakerPolicy = Policy.Handle<Exception>().CircuitBreaker(2, TimeSpan.FromSeconds(5));
 
@@ -36,7 +37,8 @@ namespace ValidationDemoApi.OrderService.ApiClients
             {
                 return null;
             }
-            else if (response.StatusCode == HttpStatusCode.OK)
+
+            if (response.StatusCode == HttpStatusCode.OK)
             {
                 var contacts = await response.Content.ReadFromJsonAsync<List<ContactDto>>();
                 return contacts;
