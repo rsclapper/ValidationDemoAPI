@@ -46,6 +46,7 @@ namespace ValidationDemoApi.Controllers
         //[Authorize]
         public IActionResult Post([FromBody] ContactDto contact)
         {
+            var userId = User.Claims.Where(x => x.Type == "UserId").Select(x => x.Value).FirstOrDefault();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

@@ -28,7 +28,7 @@ public class AuthController : ControllerBase
         var token = new JwtSecurityToken(
             issuer: "https://localhost:7124",
             audience: "https://localhost:7124",
-            claims: new List<Claim>(),
+            claims: new List<Claim>() { new Claim("UserId", "1")},
             expires: DateTime.Now.AddMinutes(30),
             signingCredentials: signinCredentials);
         var tokenString = new JwtSecurityTokenHandler().WriteToken(token);

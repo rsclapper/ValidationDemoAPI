@@ -17,11 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValidationDemoApi.Intergrat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValidationDemoApi.OrderService", "ValidationDemoApi.OrderService\ValidationDemoApi.OrderService.csproj", "{4B79B271-1A6B-46F7-A761-6A4A454828E9}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E4A57D2E-8E70-4B7E-BFD6-5D0274C98A3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValidationDemoApi.Gateway", "ValidationDemoApi.Gateway\ValidationDemoApi.Gateway.csproj", "{CA2C4856-210D-45F8-84E2-A0C0498FB455}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidationDemoApi.Gateway", "ValidationDemoApi.Gateway\ValidationDemoApi.Gateway.csproj", "{CA2C4856-210D-45F8-84E2-A0C0498FB455}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidationDemoApi.AuthService", "ValidationDemoApi.AuthService\ValidationDemoApi.AuthService.csproj", "{6C9B8FFE-5A63-434E-94F5-114C8EBB5217}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValidationDemoApi.AuthService", "ValidationDemoApi.AuthService\ValidationDemoApi.AuthService.csproj", "{6C9B8FFE-5A63-434E-94F5-114C8EBB5217}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +47,6 @@ Global
 		{4B79B271-1A6B-46F7-A761-6A4A454828E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B79B271-1A6B-46F7-A761-6A4A454828E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B79B271-1A6B-46F7-A761-6A4A454828E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E4A57D2E-8E70-4B7E-BFD6-5D0274C98A3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4A57D2E-8E70-4B7E-BFD6-5D0274C98A3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4A57D2E-8E70-4B7E-BFD6-5D0274C98A3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4A57D2E-8E70-4B7E-BFD6-5D0274C98A3F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CA2C4856-210D-45F8-84E2-A0C0498FB455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CA2C4856-210D-45F8-84E2-A0C0498FB455}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA2C4856-210D-45F8-84E2-A0C0498FB455}.Release|Any CPU.ActiveCfg = Release|Any CPU

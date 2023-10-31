@@ -27,6 +27,8 @@ namespace ValidationDemoApi.CORE.Models
         [Required]
         public decimal Salary { get; set; }
 
+        public int UserId { get; set; }
+
         public virtual List<Order> Orders { get; set; } = new List<Order>();
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

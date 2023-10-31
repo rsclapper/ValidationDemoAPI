@@ -16,7 +16,7 @@
           "Port": 7070
         }
       ]
-        
+
     },
     {
       "UpstreamPathTemplate": "/gateway/contacts",
@@ -36,12 +36,42 @@
         "AllowedScopes": [],
         "AllowedClaims": [],
         "JwksOptions": {
-          "Authority": "https://localhost:7124",
+          "Authority": "https://localhost:7124"
 
         }
       }
     },
-    
+    {
+      "UpstreamPathTemplate": "/gateway/contacts/{everything}",
+      "UpstreamHttpMethod": [
+        "PUT"
+      ],
+      "DownstreamPathTemplate": "/api/contacts/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7070
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [],
+        "AllowedClaims": [],
+        "JwksOptions": {
+          "Authority": "https://localhost:7124"
+
+        }
+
+      },
+      "AddClaimsToRequest": {
+        "Claims": [
+          {
+            "Name": "UserId"
+          }
+        ]
+      }
+    },
     {
       "UpstreamPathTemplate": "/gateway/login",
       "UpstreamHttpMethod": [
