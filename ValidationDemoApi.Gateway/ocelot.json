@@ -64,12 +64,8 @@
         }
 
       },
-      "AddClaimsToRequest": {
-        "Claims": [
-          {
-            "Name": "UserId"
-          }
-        ]
+      "AddHeadersToRequest": {
+        "Authorization": "Authorization"
       }
     },
     {
